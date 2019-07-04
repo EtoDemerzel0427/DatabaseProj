@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "layout.html" %}
+{% block content %}
+    {% for table in tables %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ table.author }}</a>
+              <small class="text-muted">{{ table.date }}</small>
+            </div>
+            <h2><a class="article-title" href="#">{{ table.name }}</a></h2>
+            <p class="article-content">{{ table.description }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
