@@ -1,10 +1,6 @@
-from flask import Flask, render_template, url_for, flash, redirect
-from flask_sqlalchemy import SQLAlchemy
-from forms import RegistrationForm, LoginForm
-
-app = Flask(__name__)
-
-app.config['SECRET_KEY'] = '7146c8a2395143ae9f1c9a23a68f6d59'
+from flask import render_template, url_for, flash, redirect
+from app.forms import RegistrationForm, LoginForm
+from app import app
 
 #Todo:之后tables里应该是根据目前导入了哪些表来决定的，先随便搞搞
 tables = [
@@ -77,6 +73,3 @@ def KPI():
 @app.route('/PRB')
 def PRB():
     return render_template("PRB.html", title="PRB")
-
-if __name__ == '__main__':
-    app.run()
