@@ -1,6 +1,26 @@
 {% extends "layout.html" %}
+
 {% block content %}
 
     <h1>I am Huang Weiran</h1>
 
-{% endblock %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-md-5">
+                <select class="selectpicker" data-style="btn-info" data-live-search="true" data-width="fit">
+                    <option data-tokens="ketchup mustard">Weiran</option>
+                    <option data-tokens="mustard">Zengrui</option>
+                    <option data-tokens="frosting">Zhi</option>
+                </select>
+
+                <select class="selectpicker" data-style="btn-primary" data-live-search="true" data-width="fit">
+                    <option data-tokens="ketchup mustard">Hello</option>
+                    <option data-tokens="mustard">Ni Hao</option>
+                    <option data-tokens="frosting">Aloha</option>
+                </select>
+
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+

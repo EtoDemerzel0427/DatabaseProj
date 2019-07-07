@@ -1,10 +1,20 @@
-from app import db,app
+from app import db, login_manager
+from flask_login import UserMixin
 
-# load data from SQL Server database
-with app.app_context():
-    db.Model.metadata.reflect(db.engine)
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 # ORM mapping
+
+class User(db.Model, UserMixin):
+    __tablename__= 'tbUser'
+
+    def __repr__(self):
+        return f"User('{self.username}', '{self.email}')"
+
+
+
 class tbAdjCell(db.Model):
     __tablename__ = 'tbAdjCell'
 
