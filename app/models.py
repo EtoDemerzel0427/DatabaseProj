@@ -14,6 +14,8 @@ class User(db.Model, UserMixin):
         return f"User('{self.username}', '{self.email}')"
 
 
+class tbKPI(db.Model):
+    __tablename__ = 'tbKPI'
 
 class tbAdjCell(db.Model):
     __tablename__ = 'tbAdjCell'

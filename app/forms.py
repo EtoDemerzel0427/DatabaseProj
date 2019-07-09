@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from app.models import User
 
@@ -31,3 +31,12 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
+
+class InterFerenceForm(FlaskForm):
+    num_SI = StringField('Num_SI',validators=[DataRequired()])
+    submit = SubmitField('InterFerence')
+
+class TriplesForm(FlaskForm):
+    num_SI = StringField('Num_SI',validators=[DataRequired()])
+    submit = SubmitField('Triples')
+

@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
 
-    <h1>{{ current_user.username }}</h1>
+    <h1>User Info</h1>
+    <p><strong>Username:</strong> <code>{{ current_user.username }}</code></p>
+    <p><strong>Email:</strong> <a href="mailto:{{ current_user.email }}">{{ current_user.email }}</a></p>
 
 {% endblock %}

@@ -1,26 +1,52 @@
 {% extends "layout.html" %}
-
 {% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Search Freely!</legend>
+                <div class="form-group">
+                    {{ form.num_SI.label(class="form-control-label") }}
+                    {% if form.num_SI.errors %}
+                        {{ form.num_SI(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.username.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.num_SI(class="form-control form-control-lg") }}
+                    {% endif %}
 
-    <h1>I am Huang Weiran</h1>
+                </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-7 col-md-5">
-                <select class="selectpicker" data-style="btn-info" data-live-search="true" data-width="fit">
-                    <option data-tokens="ketchup mustard">Weiran</option>
-                    <option data-tokens="mustard">Zengrui</option>
-                    <option data-tokens="frosting">Zhi</option>
-                </select>
-
-                <select class="selectpicker" data-style="btn-primary" data-live-search="true" data-width="fit">
-                    <option data-tokens="ketchup mustard">Hello</option>
-                    <option data-tokens="mustard">Ni Hao</option>
-                    <option data-tokens="frosting">Aloha</option>
-                </select>
-
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
             </div>
-        </div>
-    </div>
-{% endblock content %}
 
+
+
+            </fieldset>
+        </form>
+
+    </div>
+<table class="table table-bordered">
+        {% if result != None %}
+
+                    <label class=" border-bottom lg-4">{{"interference result : "}}</label>
+		<thead>
+			<tr>
+				<th>SCELL</th><th>NCELL</th><th>C2I_mean</th><th>std</th><th>PrbC2I9</th><th>PrbABS6</th>
+			</tr>
+		</thead>
+                    {% for onelist in result %}
+                    <tr>
+                        {% for one in onelist %}
+			                <td>{{one}}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+        {% endif %}
+	    </table>
+
+{% endblock content %}

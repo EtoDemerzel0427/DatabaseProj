@@ -1,6 +1,43 @@
+
 {% extends "layout.html" %}
 {% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Search Freely!</legend>
+                <div class="form-group">
+                    {{ form.num_SI.label(class="form-control-label") }}
+                    {% if form.num_SI.errors %}
+                        {{ form.num_SI(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.username.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.num_SI(class="form-control form-control-lg") }}
+                    {% endif %}
 
-    <h1>I am Huang Weiran</h1>
+                </div>
 
-{% endblock %}
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+                <div class = "form-group ">
+                    {% if list != None %}
+                    <a>{{"interference result : "}}</a>
+                        {% for onelist in list %}
+                            <div class = "form-group ">
+                                <label class = 'form-control form-control-sm'>{{onelist}}</label>
+                            </div>
+
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+            </fieldset>
+        </form>
+    </div>
+
+{% endblock content %}

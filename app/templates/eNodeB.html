@@ -1,6 +1,71 @@
 {% extends "layout.html" %}
 {% block content %}
+    <div class="content-section">
+        <form method="post" action="{{ url_for('eNodeB') }}">
 
-    <h1>I am Huang Weiran</h1>
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Search Freely!</legend>
 
-{% endblock %}
+                <div class="container">
+                    <div class="group-btn">
+                        <button class="btn btn-warning" type="submit">Search!</button>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-7 col-md-5">
+                            <select title="ID" class="selectpicker" data-style="btn-info" data-live-search="true"
+                            data-width="fit" name ='first' >
+
+
+                            {% for one in ID_choselist %}
+                                <option data-tokens="ketchup mustard">{{ one[0] }}</option>
+                            {% endfor %}
+                            </select>
+
+                            <!--<label class="form-control form-control-sm">NM_choselist</label>-->
+                            <select title="Name" class="selectpicker" data-style="btn-primary" data-live-search="true"
+                                    data-width="fit" name='second'>
+
+                                {% for one in NM_choselist %}
+                                    <option data-tokens="ketchup mustard">{{ one[0] }}</option>
+                                {% endfor %}
+                            </select>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+
+    </div>
+    <table class="table table-bordered">
+        {% if result != None %}
+
+            <label class=" border-bottom lg-4">{{ "interference result : " }}</label>
+            <thead>
+            <tr>
+                <th>CITY</th>
+                <th>SECTOR_ID</th>
+                <th>SECTOR_NAME</th>
+                <th>EARFCN</th>
+                <th>PCI</th>
+                <th>PSS</th>
+                <th>SSS</th>
+                <th>TAC</th>
+                <th>AZIMUTH</th>
+            </tr>
+            </thead>
+            {% for onelist in result %}
+                <tr>
+
+                    {% for one in onelist[0:9] %}
+                        <td>{{ one }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        {% endif %}
+    </table>
+
+{% endblock content %}
