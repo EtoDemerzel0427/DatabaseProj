@@ -1,42 +1,106 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>I am Huang Weiran</h1>
 
-    <div class="progress">
-        <div id='progressBar' class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0"
-             aria-valuemax="100" style="width: 20%;">
-            <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-            <script> $("#progressBar").css("width", "{{thePercent}}%"); </script>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<div class="content-section">
+    <legend class="border-bottom mb-4"><h1>KPI Search</h1></legend>
+    <form method="post" action="{{ url_for('KPI') }}">
+        <div class="row" style="padding-top: 100px">
+            <div class="col">
+                <label for="datepicker1"> start time:</label>
+                <input data-date-format="mm/dd" id="datepicker1" name="starttime">
+
+            </div>
+
+            <div class="col">
+                <label for="datepicker2"> end time:</label>
+                <input data-date-format="mm/dd" id="datepicker2" name="endtime">
+            </div>
         </div>
-    </div>
 
-    <main class="container">
-    <div class="row" style="padding-top: 100px">
-        <div class="col">
-            <input data-date-format="dd/mm/yyyy" id="datepicker">
+
+        <div class="row">
+            <div class="col-lg-7 col-md-5">
+                <!--<label class="form-control form-control-sm">NM_choselist</label>-->
+                <select title="neName" class="selectpicker" data-style="btn-primary" data-live-search="true"
+                        data-width="fit" name='select_neName'>
+
+                    {% for one in neName %}
+                        <option data-tokens="ketchup mustard">{{ one[0] }}</option>
+                    {% endfor %}
+                </select>
+
+                <select title="index" class="selectpicker" data-style="btn-primary" data-live-search="true"
+                        data-width="fit" name='select_index'>
+
+                    {% for one in index[5:] %}
+                        <option data-tokens="ketchup mustard">{{ one }}</option>
+                    {% endfor %}
+                </select>
+
+            </div>
         </div>
-    </div>
-</main>
+        <br>
+
+        <button class="btn btn-warning" type="submit">Search!</button>
 
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+        {#<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>#}
+        <style type="text/css">
+            .datepicker1 td, .datepicker1 th {
+                width: 1.5em;
+                height: 1.5em;
+            }
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
-{#<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>#}
-<style type="text/css">
-        .datepicker td, .datepicker th {
-            width: 1.5em;
-            height: 1.5em;
-        }
+        </style>
+        <script type="text/javascript">
+            $('#datepicker1').datepicker({
+                weekStart: 1,
+                daysOfWeekHighlighted: "6,0",
+                autoclose: true,
+                todayHighlight: true,
+            });
+            $('#datepicker1').datepicker("setDate", new Date());
+        </script>
 
-    </style>
-<script type="text/javascript">
-    $('#datepicker').datepicker({
-        weekStart: 1,
-        daysOfWeekHighlighted: "6,0",
-        autoclose: true,
-        todayHighlight: true,
-    });
-    $('#datepicker').datepicker("setDate", new Date());
-</script>
+        <style type="text/css">
+            .datepicker2 td, .datepicker2 th {
+                width: 1.5em;
+                height: 1.5em;
+            }
+
+        </style>
+        <script type="text/javascript">
+            $('#datepicker2').datepicker({
+                weekStart: 1,
+                daysOfWeekHighlighted: "6,0",
+                autoclose: true,
+                todayHighlight: true,
+            });
+            $('#datepicker2').datepicker("setDate", new Date());
+        </script>
+    </form>
+    <br>
+    <form action="{{ url_for('download_kpi') }}">
+    <button class="btn btn-warning" type="submit">Export image</button>
+    </form>
+    <br>
+
+    <form method="post" action="{{ url_for('KPI') }}">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+
+
+    {% if name != None %}
+        <p>{{ name }}</p>
+
+        <img src="data:;base64,{{ url }}" alt="Chart" height="370" width="450">
+    {% endif %}
+        </div>
+
 
 {% endblock %}

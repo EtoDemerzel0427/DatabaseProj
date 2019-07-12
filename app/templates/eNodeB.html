@@ -2,6 +2,12 @@
 {% block content %}
     <div class="content-section">
         <form method="post" action="{{ url_for('eNodeB') }}">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                    {{ form.submit(class="btn btn-outline-info") }}
+                    </div>
+        </form>
+        <form method="post" action="{{ url_for('eNodeB') }}">
 
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Search Freely!</legend>
@@ -40,7 +46,22 @@
         </form>
 
     </div>
-    <table class="table table-bordered">
+
+        <style type="text/css" media="screen">
+
+        /* Add style rules here */
+        .my-custom-scrollbar {
+            position: relative;
+            height: 400px;
+            overflow: auto;
+        }
+
+        .table-wrapper-scroll-y {
+            display: block;
+        }
+    </style>
+    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+    <table class="table table-bordered table-striped mb-0">
         {% if result != None %}
 
             <label class=" border-bottom lg-4">{{ "interference result : " }}</label>
@@ -55,17 +76,27 @@
                 <th>SSS</th>
                 <th>TAC</th>
                 <th>AZIMUTH</th>
+                <th>HEIGHT</th>
+                <th>ELECTTILT</th>
+                <th>MECHTILT</th>
+                <th>TOTLETILT</th>
+                <th>ENODEBID</th>
+                <th>ENODEB_NAME</th>
+                <th>VENDOR</th>
+                <th>LONGITUDE</th>
+                <th>LATITUDE</th>
+                <th>style</th>
             </tr>
             </thead>
             {% for onelist in result %}
                 <tr>
 
-                    {% for one in onelist[0:9] %}
+                    {% for one in onelist %}
                         <td>{{ one }}</td>
                     {% endfor %}
                 </tr>
             {% endfor %}
         {% endif %}
     </table>
-
+    </div>
 {% endblock content %}

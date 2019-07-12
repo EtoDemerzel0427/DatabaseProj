@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, IntegerField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
 from app.models import User
 
 class RegistrationForm(FlaskForm):
@@ -33,10 +33,13 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 class InterFerenceForm(FlaskForm):
-    num_SI = StringField('Num_SI',validators=[DataRequired()])
+    num_SI = IntegerField('Num_SI',validators=[DataRequired(), NumberRange(min=1, max=100, message="Please input 1 to 100")])
     submit = SubmitField('InterFerence')
 
 class TriplesForm(FlaskForm):
-    num_SI = StringField('Num_SI',validators=[DataRequired()])
+    num_SI = IntegerField('Num_SI',validators=[DataRequired(), NumberRange(min=1, max=100, message="Please input 1 to 100")])
+
     submit = SubmitField('Triples')
 
+class ExportForm(FlaskForm):
+    submit = SubmitField("Export")

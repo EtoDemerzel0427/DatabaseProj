@@ -1,7 +1,12 @@
-
 {% extends "layout.html" %}
 {% block content %}
     <div class="content-section">
+        <form method="post" action="">
+            {{ form_export.hidden_tag() }}
+            <div class="form-group">
+                {{ form_export.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
@@ -11,7 +16,7 @@
                     {% if form.num_SI.errors %}
                         {{ form.num_SI(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
-                            {% for error in form.username.errors %}
+                            {% for error in form.num_SI.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
@@ -21,23 +26,34 @@
 
                 </div>
 
-            <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info") }}
-            </div>
-                <div class = "form-group ">
-                    {% if list != None %}
-                    <a>{{"interference result : "}}</a>
-                        {% for onelist in list %}
-                            <div class = "form-group ">
-                                <label class = 'form-control form-control-sm'>{{onelist}}</label>
-                            </div>
-
-                        {% endfor %}
-                    {% endif %}
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-outline-info") }}
                 </div>
 
             </fieldset>
         </form>
     </div>
+
+    <table class="table table-bordered">
+        {% if result != None %}
+
+            <label class=" border-bottom lg-4">{{ "Triples result : " }}</label>
+            <thead>
+            <tr>
+                <th>A_sector_id</th>
+                <th>B_sector_id</th>
+                <th>C_sector_id</th>
+            </tr>
+            </thead>
+            {% for onelist in result %}
+                <tr>
+                    {% for one in onelist %}
+                        <td>{{ one }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        {% endif %}
+    </table>
+
 
 {% endblock content %}

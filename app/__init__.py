@@ -3,8 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 import urllib
+import flask_excel as excel
+
 
 app = Flask(__name__)
+excel.init_excel(app)
 
 app.config['SECRET_KEY'] = '7146c8a2395143ae9f1c9a23a68f6d59'
 

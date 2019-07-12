@@ -1,6 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
     <div class="content-section">
+
+        <form method="post" action="{{ url_for('tbCell') }}">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
         <form method="post" action="{{ url_for('tbCell') }}">
 
             <fieldset class="form-group">
@@ -10,19 +17,20 @@
                     <div class="group-btn">
                         <button class="btn btn-warning" type="submit">Search!</button>
                     </div>
+                    <br>
                     <!--<label class="  form-control-sb">Please choose one dropdown</label>-->
                     <div class="row">
                         <div class="col-lg-7 col-md-5">
 
                             <!--<label class="form-control form-control-sm">ID_choselist</label>-->
 
-                            <select title="ID"   class="selectpicker" data-style="btn-info" data-live-search="true"
-                            data-width="fit" name ='first' >
+                            <select title="ID" class="selectpicker" data-style="btn-info" data-live-search="true"
+                                    data-width="fit" name='first'>
 
 
-                            {% for one in ID_choselist %}
-                                <option data-tokens="ketchup mustard">{{ one[0] }}</option>
-                            {% endfor %}
+                                {% for one in ID_choselist %}
+                                    <option data-tokens="ketchup mustard">{{ one[0] }}</option>
+                                {% endfor %}
                             </select>
 
                             <!--<label class="form-control form-control-sm">NM_choselist</label>-->
@@ -44,7 +52,22 @@
 
     </div>
 
-    <table class="table table-bordered">
+    <style type="text/css" media="screen">
+
+        /* Add style rules here */
+        .my-custom-scrollbar {
+            position: relative;
+            height: 200px;
+            overflow: auto;
+        }
+
+        .table-wrapper-scroll-y {
+            display: block;
+        }
+    </style>
+
+<div class="table-wrapper-scroll-y my-custom-scrollbar">
+    <table class="table table-bordered table-striped mb-0">
         {% if result != None %}
 
             <label class=" border-bottom lg-4">{{ "interference result : " }}</label>
@@ -59,16 +82,27 @@
                 <th>SSS</th>
                 <th>TAC</th>
                 <th>AZIMUTH</th>
+                <th>HEIGHT</th>
+                <th>ELECTTILT</th>
+                <th>MECHTILT</th>
+                <th>TOTLETILT</th>
+                <th>ENODEBID</th>
+                <th>ENODEB_NAME</th>
+                <th>VENDOR</th>
+                <th>LONGITUDE</th>
+                <th>LATITUDE</th>
+                <th>style</th>
+
             </tr>
             </thead>
             {% for onelist in result %}
                 <tr>
-                    {% for one in onelist[0:9] %}
+                    {% for one in onelist %}
                         <td>{{ one }}</td>
                     {% endfor %}
                 </tr>
             {% endfor %}
         {% endif %}
     </table>
-
+</div>
 {% endblock content %}

@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 
+
 def check_cell(df):
     """
     :param df: dataframe,
@@ -9,22 +10,26 @@ def check_cell(df):
     df_new = df.copy()
 
     for index, row in df.iterrows():
-        if not (not pd.isnull(row['SECTOR_ID']) and
-                not pd.isnull(row['SECTOR_NAME']) and
-                not pd.isnull(row['ENODEBID']) and
-                not pd.isnull(row['ENODEB_NAME']) and
-                not pd.isnull(row['EARFCN']) and
-                row['EARFCN'] in [37900, 38098, 38400, 38950, 39148] and
-                row['PCI'] >= 0 and row['PCI'] <= 503 and
-                row['PCI'] == 3 * row['SSS'] + row['PSS'] and
-                row['PSS'] >= 0 and row['PSS'] <= 3 and
-                row['SSS'] >= 0 and row['SSS'] <= 167 and
-                row['VENDOR'] in ['华为', '中兴', '诺西', '爱立信', '贝尔', '大唐'] and
-                not pd.isnull(row['LONGITUDE']) and
-                not pd.isnull(row['LATITUDE']) and
-                row['STYLE'] in ['宏站', '室内', '室外'] and
-                not pd.isnull(row['AZIMUTH']) and
-                not pd.isnull(row['TOTLETILT']) and
+        if not (not pd.isnull(row['SECTOR_ID']) and \
+                not pd.isnull(row['SECTOR_NAME']) and \
+                not pd.isnull(row['ENODEBID']) and \
+                not pd.isnull(row['ENODEB_NAME']) and \
+                not pd.isnull(row['EARFCN']) and \
+                row['EARFCN'] in [38350, 38400, 38098, 38100, 37900, 37902, 40936, 40938, 40940, 38950, 39052, 39148,
+                                  39250, 38496, 38544] and \
+                row['PCI'] >= 0 and row['PCI'] <= 503 and \
+                row['PCI'] == 3 * row['SSS'] + row['PSS'] and \
+                row['PSS'] >= 0 and row['PSS'] <= 3 and \
+                row['SSS'] >= 0 and row['SSS'] <= 167 and \
+                row['VENDOR'] in ['华为', '中兴', '诺西', '爱立信', '贝尔', '大唐'] and \
+                not pd.isnull(row['LONGITUDE']) and \
+                not pd.isnull(row['LATITUDE']) and \
+                row['LONGITUDE'] >= -180.00000 and row['LONGITUDE'] <= 180.00000 and \
+                row['LATITUDE'] >= -90.00000 and row['LATITUDE'] <= 90.00000 and \
+                row['HEIGHT'] != '隧道内' and \
+                row['STYLE'] in ['宏站', '室内', '室外', '室分'] and \
+                not pd.isnull(row['AZIMUTH']) and \
+                not pd.isnull(row['TOTLETILT']) and \
                 row['TOTLETILT'] == row['ELECTTILT'] + row['MECHTILT']):
             df_new = df_new.drop([index])
 
@@ -67,8 +72,6 @@ def check_kpi(df):
     return df_new
 
 
-
-
 def check_mro(df):
     df_new = df.copy()
     df_new = df_new.drop(df[df['TimeStamp'].isnull().values].index)
@@ -76,6 +79,7 @@ def check_mro(df):
     df_new = df_new.drop(df[df['InterferingSector'].isnull().values].index)
 
     return df_new
+
 
 if __name__ == '__main__':
     path = r'C:\Users\huang\Desktop\2019数据库课程设计\三门峡地区TD-LTE网络数据-2017-03\12.tbKPI.xlsx'

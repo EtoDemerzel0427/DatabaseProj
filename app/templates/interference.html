@@ -1,6 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
     <div class="content-section">
+    <form method="post" action="{{ url_for('interference') }}">
+            {{ form_export.hidden_tag() }}
+            <div class="form-group">
+                {{ form_export.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
@@ -10,7 +16,7 @@
                     {% if form.num_SI.errors %}
                         {{ form.num_SI(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
-                            {% for error in form.username.errors %}
+                            {% for error in form.num_SI.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
@@ -20,33 +26,37 @@
 
                 </div>
 
-            <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info") }}
-            </div>
-
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-outline-info") }}
+                </div>
 
 
             </fieldset>
         </form>
 
     </div>
-<table class="table table-bordered">
+    <table class="table table-bordered">
         {% if result != None %}
 
-                    <label class=" border-bottom lg-4">{{"interference result : "}}</label>
-		<thead>
-			<tr>
-				<th>SCELL</th><th>NCELL</th><th>C2I_mean</th><th>std</th><th>PrbC2I9</th><th>PrbABS6</th>
-			</tr>
-		</thead>
-                    {% for onelist in result %}
-                    <tr>
-                        {% for one in onelist %}
-			                <td>{{one}}</td>
-                        {% endfor %}
-                    </tr>
+            <label class=" border-bottom lg-4">{{ "interference result : " }}</label>
+            <thead>
+            <tr>
+                <th>ServingSector</th>
+                <th>InterferingSector</th>
+                <th>C2I_mean</th>
+                <th>std</th>
+                <th>PrbC2I9</th>
+                <th>PrbABS6</th>
+            </tr>
+            </thead>
+            {% for onelist in result %}
+                <tr>
+                    {% for one in onelist %}
+                        <td>{{ one }}</td>
                     {% endfor %}
+                </tr>
+            {% endfor %}
         {% endif %}
-	    </table>
+    </table>
 
 {% endblock content %}
